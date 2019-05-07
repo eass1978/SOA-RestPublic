@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:pipelineEntry xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config">
+    <con:coreEntry>
+        <con:binding type="SOAP" isSoap12="false" xsi:type="con:SoapBindingType">
+            <con:wsdl ref="OSBREstProject/Interfaces/Contractor/RestService"/>
+            <con:binding>
+                <con:name>RestService_ptt-binding</con:name>
+                <con:namespace>http://xmlns.oracle.com/SBAplicationRest/OSBREstProject/RestService</con:namespace>
+            </con:binding>
+        </con:binding>
+        <con:xqConfiguration>
+            <con:snippetVersion>1.0</con:snippetVersion>
+        </con:xqConfiguration>
+    </con:coreEntry>
+    <con:router>
+        <con:pipeline type="request" name="request-a004b01.2cba8dee.0.16a93594a83.N7e6d">
+            <con:stage id="_StageId-a004b01.2cba8dee.0.16a93594a83.N7e6b" name="Stage1">
+                <con:context/>
+                <con:actions/>
+            </con:stage>
+        </con:pipeline>
+        <con:pipeline type="response" name="response-a004b01.2cba8dee.0.16a93594a83.N7e6c">
+            <con:stage id="_StageId-a004b01.2cba8dee.0.16a93594a83.N7e6a" name="Stage1">
+                <con:context/>
+                <con:actions>
+                    <con1:replace varName="body" contents-only="true">
+                        <con2:id>_ActionId-a004b01.2cba8dee.0.16a93594a83.N7e67</con2:id>
+                        <con1:expr>
+                            <con2:xqueryTransform>
+                                <con2:resource ref="OSBREstProject/Resources/Response"/>
+                                <con2:param name="request">
+                                    <con2:path>$body</con2:path>
+                                </con2:param>
+                            </con2:xqueryTransform>
+                        </con1:expr>
+                    </con1:replace>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:flow>
+            <con:pipeline-node name="PipelinePairNode1">
+                <con:request>request-a004b01.2cba8dee.0.16a93594a83.N7e6d</con:request>
+                <con:response>response-a004b01.2cba8dee.0.16a93594a83.N7e6c</con:response>
+            </con:pipeline-node>
+        </con:flow>
+    </con:router>
+</con:pipelineEntry>

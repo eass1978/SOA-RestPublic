@@ -1,0 +1,24 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<application xmlns:soa="http://www.oracle.com/soa/rest" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns0="http://TargetNamespace.com/ServiceName" xmlns="http://wadl.dev.java.net/2009/02">
+   <doc title="RestService">car</doc>
+   <grammars>
+      <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:import namespace="http://TargetNamespace.com/ServiceName" schemaLocation="../Schema/xsd/Order.xsd"/>
+        </xsd:schema>
+   </grammars>
+   <resources>
+      <resource path="/">
+         <method name="GET" soa:wsdlOperation="avail">
+            <request soa:paramElement="pns:carsRq" xmlns:pns="http://TargetNamespace.com/ServiceName">
+               <param name="startDate" style="query" soa:expression="$msg.request/ns0:startDate" type="xsd:dateTime"/>
+               <param name="endDate" style="query" soa:expression="$msg.request/ns0:endDate" type="xsd:dateTime"/>
+               <param name="startLocation" style="query" soa:expression="$msg.request/ns0:startLocation" type="xsd:string"/>
+               <param name="endLocation" style="query" soa:expression="$msg.request/ns0:endLocation" type="xsd:string"/>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json" element="cns:cars" xmlns:cns="http://TargetNamespace.com/ServiceName"/>
+            </response>
+         </method>
+      </resource>
+   </resources>
+</application>
